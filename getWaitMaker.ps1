@@ -10,7 +10,23 @@ while ($ip.Length -lt 7) {
 	$z=$ip.Length
     date >> $log
 	echo "(WaitMaker) Length: $z ip: $ip" >> $log
-	start-sleep -s 15
+	start-sleep -s 5
 }
 date >> $log
 echo "(WaitMaker) Script End" >> $log
+
+$ip_port=$ip +":3395"
+echo "change NetAppStorage.RDP" >> C:\Windows\Panther\get.log
+while ($exit -eq 0) {
+    if (Test-Path -Path "C:\Users\Public\Desktop") {
+        (Get-Content C:\Users\Public\Desktop\NetAppStorage.RDP).Replace($ip,"$ip_port") | Set-Content C:\Users\Public\Desktop\NetAppStorage.RDP
+        #Move-Item -Path C:\Windows\OEM\NetAppStorage.RDP -Destination C:\Users\Public\Desktop -Force
+        date >> C:\Windows\Panther\get.log
+        echo "NetAppStorage.RDP changed" >> C:\Windows\Panther\get.log
+        $exit=1
+    }else{
+        date >> C:\Windows\Panther\get.log
+        echo "Waiting for NetAppStorage.RDP..." >> C:\Windows\Panther\get.log
+	    start-sleep -s 5
+    }
+}
