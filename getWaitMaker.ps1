@@ -23,6 +23,8 @@ while ($exit -eq 0) {
         #Move-Item -Path C:\Windows\OEM\NetAppStorage.RDP -Destination C:\Users\Public\Desktop -Force
         date >> C:\Windows\Panther\get.log
         echo "NetAppStorage.RDP changed" >> C:\Windows\Panther\get.log
+			echo "Rename shortcut" >> C:\Windows\Panther\get.log
+			Rename-Item C:\Users\Public\Desktop\NetAppStorage.RDP "C:\Users\Public\Desktop\SQL Server.RDP"
         $exit=1
     }else{
         date >> C:\Windows\Panther\get.log
