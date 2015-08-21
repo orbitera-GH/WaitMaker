@@ -19,13 +19,17 @@ $ip_port=$ip +":3395"
 echo "change NetAppStorage.RDP" >> C:\Windows\Panther\get.log
 while ($exit -eq 0) {
     if (Test-Path -Path "C:\Users\Public\Desktop") {
-        (Get-Content C:\Users\Public\Desktop\NetAppStorage.RDP).Replace($ip,"$ip_port") | Set-Content C:\Users\Public\Desktop\NetAppStorage.RDP
-        #Move-Item -Path C:\Windows\OEM\NetAppStorage.RDP -Destination C:\Users\Public\Desktop -Force
-        date >> C:\Windows\Panther\get.log
-        echo "NetAppStorage.RDP changed" >> C:\Windows\Panther\get.log
-			echo "Rename shortcut" >> C:\Windows\Panther\get.log
-			Rename-Item C:\Users\Public\Desktop\NetAppStorage.RDP "C:\Users\Public\Desktop\SQL Server.RDP"
-        $exit=1
+		# wait for move shortcut by get.ps1
+		if (!(Test-Path -Path "C:\Windows\OEM\NetAppStorage.RDP")) {
+			(Get-Content C:\Users\Public\Desktop\NetAppStorage.RDP).Replace($ip,"$ip_port") | Set-Content C:\Users\Public\Desktop\NetAppStorage.RDP
+			#Move-Item -Path C:\Windows\OEM\NetAppStorage.RDP -Destination C:\Users\Public\Desktop -Force
+			date >> C:\Windows\Panther\get.log
+			echo "NetAppStorage.RDP changed" >> C:\Windows\Panther\get.log
+				echo "Rename shortcut" >> C:\Windows\Panther\get.log
+				Rename-Item C:\Users\Public\Desktop\NetAppStorage.RDP "C:\Users\Public\Desktop\SQL Server.RDP"
+			$exit=1
+		}
+		start-sleep -s 2
     }else{
         date >> C:\Windows\Panther\get.log
         echo "Waiting for NetAppStorage.RDP..." >> C:\Windows\Panther\get.log
