@@ -19,7 +19,7 @@ $ip_port=$ip +":3395"
 echo "change NetAppStorage.RDP" >> C:\Windows\Panther\get.log
 while ($exit -eq 0) {
     if (Test-Path -Path "C:\Users\Public\Desktop") {
-		# wait for move shortcut by get.ps1
+		echo "wait for move shortcut by get.ps1" >> $log
 		if (!(Test-Path -Path "C:\Windows\OEM\NetAppStorage.RDP")) {
 			(Get-Content C:\Users\Public\Desktop\NetAppStorage.RDP).Replace($ip,"$ip_port") | Set-Content C:\Users\Public\Desktop\NetAppStorage.RDP
 			#Move-Item -Path C:\Windows\OEM\NetAppStorage.RDP -Destination C:\Users\Public\Desktop -Force
